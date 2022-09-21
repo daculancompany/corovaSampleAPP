@@ -1,0 +1,102 @@
+.list-inside{
+    width: 100vh !important;
+}
+
+ons-list.sidebar-list.list.list--material {
+    height: 100vh !important;
+    background-color: #3343BE !important;
+}
+
+ons-list-item.sidebar-list-item {
+    border: none;
+    background: #3343be;
+    color: #fff;
+}
+
+.center.list-item__center.list-item--material__center {
+    background: none !important;
+}
+
+.card__title {
+    color: #000 !important;
+}
+
+ons-icon.ons-icon.zmdi.zmdi-menu {
+    color: #3343be !important;
+}
+
+.fab-primary{
+    background: #3343be !important;
+    color: #fff !important;
+}
+
+.form{
+    padding: 10px;
+}
+
+.input {
+    width:  100% !important;
+    height: 60px !important;
+}
+
+
+/* ons-carousel {
+    width: 25% !important;
+    overflow: visible !important;
+}
+
+.list-action-item{
+    width: 70%;
+} */
+
+/* .list-action-item {
+    width: 400% !important;
+} */
+.list-action-item{
+    height: 70px !important;
+  
+}
+
+.item-content-list{
+    position: absolute !important;
+    width: 100vh !important;
+    background: white !important;
+}
+
+.list-action-menu{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 70px !important;
+    width: 125px !important;
+}
+
+.list-action-menu .action{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+}
+
+.action.danger {
+    background: #e91e63;
+    color: #fff;
+}
+
+.action.info {
+    background: #00bcd4;
+    color: #fff;
+}
+
+ons-fab{
+    position: fixed !important;
+}
+
+ons-toast{
+    z-index: 10008 !important;
+}
+
+.toast{
+    position: fixed !important;
+}

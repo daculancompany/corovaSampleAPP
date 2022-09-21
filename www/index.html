@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <meta
+            name="viewport"
+            content="initial-scale=1, width=device-width, viewport-fit=cover"
+        />
+        <meta name="color-scheme" content="light dark" />
+        <link rel="stylesheet" href="css/index.css" />
+        <title>POS Application</title>
+
+        <link rel="stylesheet" href="onsen-lib/onsenui.css" />
+        <link rel="stylesheet" href="onsen-lib/onsen-css-components.min.css" />
+        <script src="onsen-lib/onsenui.min.js"></script>
+        <script src="onsen-lib/jquery.min.js"></script>
+    </head>
+    <body>
+        <ons-splitter>
+            <ons-splitter-side
+                id="menu"
+                side="left"
+                width="260px"
+                collapse
+                swipeable
+               
+            >
+                <ons-page>
+                    <!-- <div>Somecontent</div> -->
+                    <ons-list class="sidebar-list">
+                        <ons-list-item class="sidebar-list-item" onclick="fn.load('pages/home.html')" tappable>
+                            <ons-icon icon="md-home"></ons-icon> Home
+                        </ons-list-item>
+                        <ons-list-item class="sidebar-list-item" onclick="fn.load('pages/jquerysample.html')" tappable>
+                            <ons-icon icon="fa-file"></ons-icon> Sample Jquery Code
+                        </ons-list-item>
+                        <ons-list-item class="sidebar-list-item" onclick="fn.load('pages/form.html')" tappable>
+                            <ons-icon icon="fa-cog"></ons-icon> Form
+                        </ons-list-item>
+                        <ons-list-item class="sidebar-list-item" onclick="fn.load('pages/control.html')" tappable>
+                            Control
+                        </ons-list-item>
+                        <ons-list-item class="sidebar-list-item" onclick="fn.load('pages/grid.html')" tappable>
+                            Grid
+                        </ons-list-item>
+                        <ons-list-item  class="sidebar-list-item" onclick="fn.load('pages/list.html')" tappable>
+                            List
+                        </ons-list-item>
+                        <ons-list-item class="sidebar-list-item" onclick="fn.load('pages/dialog.html')" tappable>
+                            Dialog
+                        </ons-list-item>
+                        <ons-list-item
+                            class="sidebar-list-item"
+                            onclick="fn.load('pages/upload.html')"
+                            tappable
+                        >
+                            Upload
+                        </ons-list-item>
+                    </ons-list>
+                </ons-page>
+            </ons-splitter-side>
+            <ons-splitter-content id="content" page="pages/jquerysample.html"></ons-splitter-content>
+        </ons-splitter>
+        <template  page="pages/upload.html"></template>
+        <script src="cordova.js"></script>
+        <script src="js/index.js"></script>
+        <script>
+            window.fn = {};
+            window.fn.open = function () {
+                var menu = document.getElementById("menu");
+                menu.open();
+            };
+
+            window.fn.load = function (page) {
+                var content = document.getElementById("content");
+                var menu = document.getElementById("menu");
+                content.load(page).then(menu.close.bind(menu));
+            };
+
+            function showModal() {
+                var modal = document.querySelector("ons-modal");
+                modal.show();
+                setTimeout(function () {
+                    modal.hide();
+                }, 2000);
+            }
+
+            var login = function () {
+                var username = document.getElementById("username").value;
+                var password = document.getElementById("password").value;
+
+                if (username === "bob" && password === "secret") {
+                    ons.notification.alert("Congratulations!");
+                } else {
+                    ons.notification.alert("Incorrect username or password.");
+                }
+            };
+
+            
+        </script>
+        <!-- <script>
+            var createAlertDialog = function () {
+                var dialog = document.getElementById("my-alert-dialog");
+
+                if (dialog) {
+                    dialog.show();
+                } else {
+                    ons.createElement("alert-dialog.html", {
+                        append: true,
+                    }).then(function (dialog) {
+                        dialog.show();
+                    });
+                }
+            };
+
+            var hideAlertDialog = function () {
+                document.getElementById("my-alert-dialog").hide();
+            };
+
+            var notify = function () {
+                ons.notification.alert(
+                    "This dialog was created with ons.notification"
+                );
+            };
+
+            function scan() {
+                cordova.plugins.barcodeScanner.scan(
+                    function (result) {
+                        alert(
+                            "We got a barcode\n" +
+                                "Result: " +
+                                result.text +
+                                "\n" +
+                                "Format: " +
+                                result.format +
+                                "\n" +
+                                "Cancelled: " +
+                                result.cancelled
+                        );
+                    },
+                    function (error) {
+                        alert("Scanning failed: " + error);
+                    },
+                    {
+                        preferFrontCamera: true, // iOS and Android
+                        showFlipCameraButton: true, // iOS and Android
+                        showTorchButton: true, // iOS and Android
+                        torchOn: true, // Android, launch with the torch switched on (if available)
+                        saveHistory: true, // Android, save scan history (default false)
+                        prompt: "Place a barcode inside the scan area", // Android
+                        resultDisplayDuration: 500, // Android, display scanned text for X ms. 0 suppresses it entirely, default 1500
+                        formats: "QR_CODE,PDF_417", // default: all but PDF_417 and RSS_EXPANDED
+                        orientation: "landscape", // Android only (portrait|landscape), default unset so it rotates with the device
+                        disableAnimations: true, // iOS
+                        disableSuccessBeep: false, // iOS and Android
+                    }
+                );
+            }
+        </script> -->
+    </body>
+</html>

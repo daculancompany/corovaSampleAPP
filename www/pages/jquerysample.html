@@ -1,0 +1,203 @@
+<ons-page>
+    <ons-modal direction="up" id="modal-form">
+        <ons-card>
+            <div class="title">Form User</div>
+            <div class="content">
+                <form class="form" id="form-add" autocomplete="off">
+                    <div class="input-section">
+                        <ons-input
+                            class="input"
+                            id="name"
+                            modifier="underbar"
+                            placeholder="Name"
+                            float
+                        ></ons-input>
+                    </div>
+                    <div class="input-section">
+                        <ons-input
+                            class="input"
+                            id="username"
+                            modifier="underbar"
+                            placeholder="Username"
+                            float
+                        ></ons-input>
+                    </div>
+                    <div class="input-section">
+                        <ons-input
+                            class="input"
+                            id="password"
+                            modifier="underbar"
+                            type="password"
+                            placeholder="Password"
+                            float
+                        ></ons-input>
+                    </div>
+                    <ons-button modifier="large" onclick="submitForm()"
+                        >Save</ons-button
+                    >
+                    <p></p>
+                    <ons-button modifier="large--quiet" onclick="closeModal()"
+                        >Close</ons-button
+                    >
+                </form>
+            </div>
+        </ons-card>
+    </ons-modal>
+    <ons-toolbar>
+        <div class="left">
+            <ons-toolbar-button onclick="fn.open()">
+                <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
+            </ons-toolbar-button>
+        </div>
+        <div class="center">Jquery LocalStorage</div>
+    </ons-toolbar>
+    <ons-pull-hook id="pull-hook">
+        <ons-progress-circular
+            color="red"
+            indeterminate
+        ></ons-progress-circular>
+    </ons-pull-hook>
+    <div class="page-content">
+        <div id="userlist"></div>
+        <ons-fab
+            position="bottom right"
+            onclick="showModal()"
+            class="fab-primary"
+        >
+            <ons-icon icon="md-plus"></ons-icon>
+        </ons-fab>
+        <ons-toast id="myToast" animation="ascend">
+            <span id="myToastValue"></span>
+            <button onclick="myToast.hide()">ok</button>
+        </ons-toast>
+    </div>
+    <script>
+        var pullHook = document.getElementById("pull-hook");
+        ons.ready(function () {
+            // pullHook.addEventListener("changestate", function (event) {
+
+            // });
+            // pullHook.onAction = function (done) {
+            //     setTimeout(done, 1000);
+            // };
+
+            pullHook.onAction = function (done) {
+                getUsers(done);
+            };
+        });
+        $(document).ready(function () {
+            getUsers();
+        });
+        let users = [];
+        var modal = $("#modal-form");
+        function showModal() {
+            modal.show();
+        }
+
+        function closeModal() {
+            modal.hide();
+        }
+
+        function submitForm() {
+            $("#form-add").submit();
+        }
+
+        $("#form-add").submit(function (e) {
+            users = localStorage.getItem("users") !== null ? JSON.parse(localStorage.getItem("users")) : [];
+            let id = Math.floor(Math.random() * 287979870);
+            let name = $("#name").val();
+            let username = $("#username").val();
+            let password = $("#password").val();
+            users.push({
+                id: id,
+                name: name,
+                username: username,
+                password: password,
+            });
+            localStorage.setItem("users", JSON.stringify(users));
+            modal.hide();
+            $("#name").val("");
+            $("#username").val("");
+            $("#password").val("");
+            showToast('User successfully saved!');
+            getUsers();
+            return false;
+        });
+
+        function showToast(message){
+            $("#myToastValue").text(message);
+            $("#myToast").show();
+            setTimeout(()=>{
+                $("#myToast").hide();
+            },5000)
+        }
+
+        function getUsers(done) { 
+            if(done){
+                alert('user load');
+            }
+            let users = JSON.parse(localStorage.getItem("users"));
+            var html = "";
+            for (let index = 0; index < users.length; index++) {
+                html += `
+                    <ons-carousel swipeable item-width="30%" auto-scroll  onclick="viewDetails('${users[index].id}')">
+                        <ons-carousel-item class="list-action-item">
+                            <div class="item-content-list">
+                                <ons-list>
+                                   
+                                    <ons-list-item>
+                                        <div class="left">
+                                        <img class="list-item__thumbnail" src="https://placekitten.com/g/40/40">
+                                        </div>
+                                        <div class="center">
+                                        <span class="list-item__title">${users[index].name}</span><span class="list-item__subtitle">${users[index].username}</span>
+                                        </div>
+                                    </ons-list-item>
+                                </ons-list>
+                            </div>
+                        </ons-carousel-item>
+                        <ons-carousel-item class="list-action-dummy"></ons-carousel-item>
+                        <ons-carousel-item class="list-action-dummy"></ons-carousel-item>
+                        <ons-carousel-item class="list-action-dummy"></ons-carousel-item>
+                        <ons-carousel-item class="list-action-menu"
+                            >
+                        <div class="action danger" onclick="deleteUser('${users[index].id}')" ">
+                            <ons-ripple></ons-ripple>
+                                <ons-icon icon="fa-trash"></ons-icon>
+                            </ons-carousel-item
+                        >
+                        </div>
+                        <div class="action info">
+                            <ons-ripple></ons-ripple>
+                            <ons-icon icon="fa-pen"></ons-icon>
+                            </ons-carousel-item
+                        >
+                        </div>
+                    </ons-carousel>
+                `;
+            }
+            $("#userlist").html(html);
+            setTimeout(done, 6000);
+        }
+
+        function deleteUser(id, e) {
+            if (!e) var e = window.event;
+            e.cancelBubble = true;
+            if (e.stopPropagation) e.stopPropagation();
+
+            let users = JSON.parse(localStorage.getItem("users"));
+            let index = users.findIndex(function (o) {
+                return o.id === parseInt(id);
+            });
+            if (index !== -1) users.splice(index, 1);
+            localStorage.setItem("users", JSON.stringify(users));
+            showToast('User successfully deleted!');
+            getUsers();
+        }
+
+        function viewDetails(id) {
+            console.log(id);
+            //alert('details');
+        }
+    </script>
+</ons-page>

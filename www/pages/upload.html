@@ -1,0 +1,23 @@
+<ons-page>
+    <ons-toolbar>
+        <div class="left">
+            <ons-toolbar-button onclick="fn.open()" class="toolbar">
+                <ons-icon icon="md-menu"></ons-icon>
+            </ons-toolbar-button>
+        </div>
+        <div class="center">Upload Page</div>
+    </ons-toolbar>
+    <div style="display: flex">
+        <input type="file" accept="image/*" onchange="loadFile(event)" />
+        <img id="output" />
+    </div>
+    <script>
+        var loadFile = function (event) {
+            var output = document.getElementById("output");
+            output.src = URL.createObjectURL(event.target.files[0]);
+            output.onload = function () {
+                URL.revokeObjectURL(output.src); // free memory
+            };
+        };
+    </script>
+</ons-page>
