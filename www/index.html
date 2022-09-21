@@ -36,6 +36,12 @@
                         <ons-list-item class="sidebar-list-item" onclick="fn.load('pages/jquerysample.html')" tappable>
                             <ons-icon icon="fa-file"></ons-icon> Sample Jquery Code
                         </ons-list-item>
+                        <ons-list-item class="sidebar-list-item" onclick="fn.load('pages/camera.html')" tappable>
+                            <ons-icon icon="fa-file"></ons-icon> Camera Plugin
+                        </ons-list-item>
+                        <ons-list-item class="sidebar-list-item" onclick="fn.load('pages/get-image.html')" tappable>
+                            <ons-icon icon="fa-file"></ons-icon> Get Image
+                        </ons-list-item>
                         <ons-list-item class="sidebar-list-item" onclick="fn.load('pages/form.html')" tappable>
                             <ons-icon icon="fa-cog"></ons-icon> Form
                         </ons-list-item>
@@ -61,9 +67,8 @@
                     </ons-list>
                 </ons-page>
             </ons-splitter-side>
-            <ons-splitter-content id="content" page="pages/jquerysample.html"></ons-splitter-content>
+            <ons-splitter-content id="content" page="pages/home.html"></ons-splitter-content>
         </ons-splitter>
-        <template  page="pages/upload.html"></template>
         <script src="cordova.js"></script>
         <script src="js/index.js"></script>
         <script>
@@ -97,8 +102,6 @@
                     ons.notification.alert("Incorrect username or password.");
                 }
             };
-
-            
         </script>
         <!-- <script>
             var createAlertDialog = function () {

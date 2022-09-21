@@ -15,14 +15,24 @@
   "devDependencies": {
     "cordova-android": "^10.1.2",
     "cordova-plugin-barcodescanner": "^0.7.4",
-    "cordova-plugin-compat": "^1.2.0"
+    "cordova-plugin-compat": "^1.2.0",
+    "cordova-plugin-file": "^7.0.0",
+    "cordova-plugin-media-capture": "^4.0.0"
   },
   "cordova": {
     "platforms": [
       "android"
     ],
     "plugins": {
-      "cordova-plugin-barcodescanner": {}
+      "cordova-plugin-barcodescanner": {},
+      "cordova-plugin-camera": {
+        "ANDROIDX_CORE_VERSION": "1.6.+"
+      },
+      "cordova-plugin-media-capture": {},
+      "cordova-plugin-file": {}
     }
+  },
+  "dependencies": {
+    "cordova-plugin-camera": "^6.0.0"
   }
 }

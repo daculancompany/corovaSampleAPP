@@ -1,0 +1,83 @@
+<!-- 
+references
+https://cordova.apache.org/docs/en/11.x/reference/cordova-plugin-media-capture/
+
+convert capture image device to base64
+https://ourcodeworld.com/articles/read/80/how-to-convert-a-image-from-the-device-to-base64-with-javascript-in-cordova
+ -->
+<ons-page>
+    <ons-toolbar>
+        <div class="left">
+            <ons-toolbar-button onclick="fn.open()">
+                <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
+            </ons-toolbar-button>
+        </div>
+        <div class="center">Camera Page</div>
+    </ons-toolbar>
+    <div class="page-content">
+        <br />
+        <br />
+        <button id="cameraGetPicture" onclick="cameraGetPicture()">Capture Image</button>
+        <br />
+        <br />
+        <img id="myImage" style="width: 200px; height: 200px" />
+    </div>
+    <script>
+       
+        function cameraGetPicture() {
+            // start image capture
+            navigator.device.capture.captureImage(
+                captureSuccess,
+                captureError,
+                { limit: 1 }
+            );
+        }
+
+        // capture callback
+        var captureSuccess = function (mediaFiles) {
+            var i, path, len;
+            var image = $("#myImage");
+            for (i = 0, len = mediaFiles.length; i < len; i += 1) {
+                path = mediaFiles[i].fullPath;
+                // image[0].src = path;
+                // Convert image
+                getFileContentAsBase64(path, function (base64Image) {
+                    //window.open(base64Image);
+                   // alert(base64Image);
+                    image[0].src = base64Image;
+                    // Then you'll be able to handle the myimage.png file as base64
+                });
+                // do something interesting with the file
+            }
+        };
+
+        // capture error callback
+        var captureError = function (error) {
+            navigator.notification.alert(
+                "Error code: " + error.code,
+                null,
+                "Capture Error"
+            );
+        };
+
+        function getFileContentAsBase64(path, callback) {
+            window.resolveLocalFileSystemURL(path, gotFile, fail);
+
+            function fail(e) {
+                alert("Cannot found requested file");
+            }
+
+            function gotFile(fileEntry) {
+                fileEntry.file(function (file) {
+                    var reader = new FileReader();
+                    reader.onloadend = function (e) {
+                        var content = this.result;
+                        callback(content);
+                    };
+                    // The most important point, use the readAsDatURL Method from the file plugin
+                    reader.readAsDataURL(file);
+                });
+            }
+        }
+    </script>
+</ons-page>

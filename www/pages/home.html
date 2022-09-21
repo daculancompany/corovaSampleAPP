@@ -9,7 +9,7 @@
     </template>
     <template page="pages/page2.html"></template>
     <script>
-        var toolbar_header = `<ons-toolbar id="toolbar"  >
+        const  toolbar_header = `<ons-toolbar id="toolbar"  >
             <div class="left">
                 <ons-toolbar-button onclick="fn.open()">
                     <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
@@ -39,6 +39,7 @@
         function backButton(){
             $("#toolbar-header").html(toolbar_header);
         }
+        
 
     </script>
 </ons-page>
