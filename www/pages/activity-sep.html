@@ -1,0 +1,56 @@
+<!-- 
+references
+https://cordova.apache.org/docs/en/11.x/reference/cordova-plugin-media-capture/
+
+convert capture image device to base64
+https://ourcodeworld.com/articles/read/80/how-to-convert-a-image-from-the-device-to-base64-with-javascript-in-cordova
+ -->
+<ons-page>
+    <ons-toolbar>
+        <div class="left">
+            <ons-toolbar-button onclick="fn.open()">
+                <ons-icon icon="ion-navicon, material:md-menu"></ons-icon>
+            </ons-toolbar-button>
+        </div>
+        <div class="center">Activity September 22</div>
+    </ons-toolbar>
+    <div class="page-content">
+        <ons-card style="text-align: center">
+            <p>
+                <ons-input
+                    id="fname"
+                    modifier="underbar"   
+                    placeholder="First Name"
+                    float
+                ></ons-input>
+            </p>
+            <p>
+                <ons-input
+                    id="lname"
+                    modifier="underbar"
+                    placeholder="Last Name"
+                    float
+                ></ons-input>
+            </p>
+            <p style="margin-top: 30px">
+                <ons-button onclick="submit()">Save</ons-button>
+            </p>
+            <p>First Name : <span id="text-fname"></span></p>
+            <p>Last Name : <span id="text-lname"></span></p>
+        </div>
+    </ons-card>
+    <script>
+
+        function submit(){
+            let fname = $("#fname").val();
+            let lname = $("#lname").val();
+            localStorage.setItem('fname', fname);
+            localStorage.setItem('lname', lname);
+            $("#text-fname").text(fname);
+            $("#text-lname").text(lname);
+
+        }
+        $("#text-fname").text(localStorage.getItem("fname"));
+        $("#text-lname").text(localStorage.getItem("lname"));
+    </script>
+</ons-page>
