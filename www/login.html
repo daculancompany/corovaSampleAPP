@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <meta
+            name="viewport"
+            content="initial-scale=1, width=device-width, viewport-fit=cover"
+        />
+        <meta name="color-scheme" content="light dark" />
+        <link rel="stylesheet" href="css/index.css" />
+        <title>POS Application</title>
+        <link rel="stylesheet" href="onsen-lib/onsenui.css" />
+        <link rel="stylesheet" href="onsen-lib/onsen-css-components.min.css" />
+        <script src="onsen-lib/onsenui.min.js"></script>
+        <script src="onsen-lib/jquery.min.js"></script>
+    </head>
+    <body>
+        <ons-page>
+            <div class="login-page">
+                <div class="logo">
+                    <img src="img/logo.png" />
+                </div>
+                <ons-card class="card">
+                    <div class="title">Login Your Account</div>
+                    <div class="content">
+                        <form class="form" id="form-login" autocomplete="off">
+                            <div class="input-section">
+                                <ons-input
+                                    class="input"
+                                    id="username"
+                                    modifier="underbar"
+                                    placeholder="Username"
+                                    float
+                                ></ons-input>
+                            </div>
+                            <div class="input-section">
+                                <ons-input
+                                    class="input"
+                                    id="password"
+                                    modifier="underbar"
+                                    type="password"
+                                    placeholder="Password"
+                                    float
+                                ></ons-input>
+                            </div>
+                            <ons-button modifier="large" onclick="submitForm()"
+                                >Sign In</ons-button
+                            >
+                        </form>
+                    </div>
+                </ons-card>
+            </div>
+        </ons-page>
+        <script src="cordova.js"></script>
+        <script src="js/index.js"></script>
+        <script>
+            if (localStorage.getItem("login_id")) {
+                window.location.href = "index.html";
+            }
+
+            function submitForm() {
+                $("#form-login").submit();
+            }
+
+            $("#form-login").submit(function (e) {
+                localStorage.setItem("login_id", "1");
+                window.location.href = "index.html";
+                return false;
+            });
+        </script>
+    </body>
+</html>

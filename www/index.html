@@ -11,7 +11,6 @@
         <meta name="color-scheme" content="light dark" />
         <link rel="stylesheet" href="css/index.css" />
         <title>POS Application</title>
-
         <link rel="stylesheet" href="onsen-lib/onsenui.css" />
         <link rel="stylesheet" href="onsen-lib/onsen-css-components.min.css" />
         <script src="onsen-lib/onsenui.min.js"></script>
@@ -78,6 +77,9 @@
         <script src="cordova.js"></script>
         <script src="js/index.js"></script>
         <script>
+            if(!localStorage.getItem("login_id")){
+                window.location.href = 'login.html';
+            }
             window.fn = {};
             window.fn.open = function () {
                 var menu = document.getElementById("menu");
